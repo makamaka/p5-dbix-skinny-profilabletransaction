@@ -1,0 +1,49 @@
+DBIx::Skinny::ProfilableTransaction
+========================
+
+NAME
+    DBIx::Skinny::ProfilableTransaction - logging transaction SQL
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+SYNOPSIS
+        package Your::DB::Schema;
+
+        use DBIx::Skinny connect_info => +{
+            dsn => 'dbi:SQLite:',
+            username => '',
+            password => '',
+        };
+        use DBIx::Skinny::ProfilableTransaction;
+        1;
+
+        # SKINNY_PROFILE=1 or SKINNY_TRACE=1 ...
+
+DESCRIPTION
+    Since version 0.0730, DBIx::Skinny profiler cannot record SQL statements
+    about transaction - 'BEGIN WORK', 'COMMIT WORK' and 'ROLLBACK WORK'
+    because DBIx::Skinny has used DBIx::TransactionManager instead of
+    Skinny::Transaction.
+
+    This module makes profiler modules record those SQL statement.
+
+        use DBIx::Skinny connect_info => ... ;
+        use DBIx::Skinny::ProfilableTransaction;
+
+SEE ALSO
+    DBIx::Skinny, DBIx::TransactionManager
+
+AUTHOR
+    Makamaka Hannyaharamitu "<makamaka at cpan.org>"
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

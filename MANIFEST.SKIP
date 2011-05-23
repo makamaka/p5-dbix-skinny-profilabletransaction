@@ -1,0 +1,16 @@
+\.[oc]$
+\.bs$
+\.tgz$
+\.tar\.gz$
+\.git
+\.bak$
+\.shipit$
+blib/
+\.old$
+Makefile$
+MANIFEST\.SKIP
+pm_to_blib
+tmp/
+ex/
+DBIx-Skinny-*
+pod\.txt
