@@ -1,5 +1,7 @@
 Revision history for Perl extension DBIx::Skinny::ProfilableTransaction.
 
+0.02  Mon Jun  6 10:40:27 2011
+	- fixed for nested transaction
 
 0.01  Mon May 23 22:41:16 2011
 	- initial version

@@ -3,7 +3,7 @@ package DBIx::Skinny::ProfilableTransaction;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub import {
     my $pkg = caller;
@@ -46,21 +46,21 @@ sub profiler {  shift->{ _profiler }->record_query( @_ ); }
 
 sub txn_begin {
     my $self = shift;
-    $self->profiler('BEGIN WORK');
+    $self->profiler('BEGIN WORK') unless ( $self->in_transaction );
     $self->SUPER::txn_begin( @_ );
 }
 
 
 sub txn_rollback {
     my $self = shift;
-    $self->profiler('ROLLBACK WORK');
+    $self->profiler('ROLLBACK WORK') unless ( @{$self->active_transactions} > 1 );
     $self->SUPER::txn_rollback( @_ );
 }
 
 
 sub txn_commit {
     my $self = shift;
-    $self->profiler('COMMIT WORK');
+    $self->profiler('COMMIT WORK') unless ( @{$self->active_transactions} > 1 );
     $self->SUPER::txn_commit( @_ );
 }
 
