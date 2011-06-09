@@ -51,6 +51,7 @@ like( scalar <$fh>, qr/ROLLBACK WORK/ );
 
 like( scalar <$fh>, qr/BEGIN WORK/ );
 like( scalar <$fh>, qr/ROLLBACK WORK/ );
+ok( not defined( scalar(<$fh>) ) );
 
 {
     my $txn = $db->txn_scope;
@@ -63,6 +64,20 @@ like( scalar <$fh>, qr/ROLLBACK WORK/ );
 
 like( scalar <$fh>, qr/BEGIN WORK/ );
 like( scalar <$fh>, qr/COMMIT WORK/ );
+
+
+{
+    my $txn = $db->txn_scope;
+    {
+        my $txn2 = $db->txn_scope;
+        $txn2->commit;
+    }
+    $txn->rollback;
+}
+
+like( scalar <$fh>, qr/BEGIN WORK/ );
+like( scalar <$fh>, qr/ROLLBACK WORK/ );
+ok( not defined( scalar(<$fh>) ) );
 
 
 close( $fh );

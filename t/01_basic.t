@@ -12,8 +12,6 @@ BEGIN {
 
 use Mock::Basic;
 
-diag( DBIx::Skinny->VERSION );
-
 my ( $file ) = $ENV{SKINNY_TRACE} =~ /=(.+)$/;
 if ( -s $file ) {
     unlink $file;
